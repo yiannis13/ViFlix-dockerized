@@ -15,13 +15,14 @@ namespace Service.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
+
         public MoviesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("movies")]
         public async Task<ActionResult> GetMovies()
         {
@@ -37,15 +38,15 @@ namespace Service.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleName.Admin)]
-        [Route("movies/new")]
+        //[Route("movies/new")]
         public ActionResult CreateMovieForm()
         {
             return View(new MovieFormViewModel());
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleName.Admin)]
-        [ValidateAntiForgeryToken]
+        //[Authorize(Roles = RoleName.Admin)]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateMovie(MovieFormViewModel viewModel)
         {
             if (!ModelState.IsValid)

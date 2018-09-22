@@ -20,7 +20,7 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("customers")]
         public async Task<ActionResult> GetCustomers()
         {

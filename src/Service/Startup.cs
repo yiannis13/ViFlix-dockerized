@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Common.Data;
+using Common.Data.Repository;
 using Common.Models.Identity;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Service.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Data;
+using Persistence.DbContextContainer;
+using Persistence.Repository;
+using Persistence.Repository.EFImplementation;
 
 namespace Service
 {
@@ -35,14 +33,20 @@ namespace Service
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ViFlixContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<AppUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ViFlixContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IMembershipTypeRepository, MembershipTypeRepository>();
+            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IRentalRepository, RentalRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
