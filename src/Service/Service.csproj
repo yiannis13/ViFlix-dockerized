@@ -7,9 +7,54 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Content\**" />
+    <Compile Remove="Scripts\**" />
+    <Content Remove="Content\**" />
+    <Content Remove="Scripts\**" />
+    <EmbeddedResource Remove="Content\**" />
+    <EmbeddedResource Remove="Scripts\**" />
+    <None Remove="Content\**" />
+    <None Remove="Scripts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\bootbox.js" />
+    <None Include="wwwroot\lib\bootbox.min.js" />
+    <None Include="wwwroot\lib\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap.min.js" />
+    <None Include="wwwroot\lib\deleteCustomer.js" />
+    <None Include="wwwroot\lib\jquery-1.10.2.intellisense.js" />
+    <None Include="wwwroot\lib\jquery-1.10.2.js" />
+    <None Include="wwwroot\lib\jquery-1.10.2.min.js" />
+    <None Include="wwwroot\lib\jquery-1.10.2.min.map" />
+    <None Include="wwwroot\lib\jquery.validate-vsdoc.js" />
+    <None Include="wwwroot\lib\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\modernizr-2.6.2.js" />
+    <None Include="wwwroot\lib\rental.js" />
+    <None Include="wwwroot\lib\respond.js" />
+    <None Include="wwwroot\lib\respond.min.js" />
+    <None Include="wwwroot\lib\toastr.js" />
+    <None Include="wwwroot\lib\toastr.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,36 @@
+﻿@using Common.Models.Domain
+@model IList<Common.Models.Domain.Movie>
+
+@{
+    ViewBag.Title = "Movies";
+}
+
+<hr/>
+<button type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("CreateMovieForm", "Movies")'">New Movie</button>
+<hr/>
+
+@{
+    if (@Model.Count == 0)
+    {
+        <p>We don't have any movies yet.</p>
+    }
+    else
+    {
+        <table style="width: 100%" class="table table-bordered table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+            </tr>
+            @foreach (Movie movie in @Model)
+            {
+                <tr>
+                    <!--<td><a href="movies/details/@movie.Id">@movie.Name</a></td>-->
+                    <td>@Html.ActionLink(movie.Name, "EditMovieForm", new { id = movie.Id })</td>
+                    <td>@movie.Genre</td>
+                </tr>
+            }
+
+        </table>
+    }
+}
+

@@ -1,10 +1,7 @@
-﻿//using System.Data.Entity;
-using Common.Models.Identity;
+﻿using Common.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-//using Microsoft.AspNet.Identity.EntityFramework;
-//using ViFlix.DataAccess.Entities;
-//using ViFlix.DataAccess.Identity;
+using Persistence.Entities;
 
 namespace Persistence.DbContextContainer
 {
@@ -15,10 +12,9 @@ namespace Persistence.DbContextContainer
     //    public DbSet<MembershipType> MembershipTypes { get; set; }
     //    public DbSet<Rental> Rentals { get; set; }
 
-    //    public ViFlixContext()
-    //        : base("name=ViFlixContext")
+    //    public ViFlixContext(DbContextOptions<ViFlixContext> options)
+    //        : base(options)
     //    {
-
     //    }
     //}
 }
