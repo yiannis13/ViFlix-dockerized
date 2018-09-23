@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Common.Factories;
-using Common.Models.Identity;
+//using Common.Models.Identity;
 using Common.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,14 +12,14 @@ namespace Service.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
-        private readonly UserManagerFactory _userManagerFactory;
-        private readonly SignInManagerFactory _signInManagerFactory;
+        //private readonly UserManagerFactory _userManagerFactory;
+        //private readonly SignInManagerFactory _signInManagerFactory;
 
-        public LoginController(UserManagerFactory userManagerFactory, SignInManagerFactory signInManagerFactory)
-        {
-            _userManagerFactory = userManagerFactory ?? throw new NullReferenceException("userManagerFactory cannot be null");
-            _signInManagerFactory = signInManagerFactory ?? throw new NullReferenceException("signInManagerFactory cannot be null");
-        }
+        //public LoginController(UserManagerFactory userManagerFactory, SignInManagerFactory signInManagerFactory)
+        //{
+        //    _userManagerFactory = userManagerFactory ?? throw new NullReferenceException("userManagerFactory cannot be null");
+        //    _signInManagerFactory = signInManagerFactory ?? throw new NullReferenceException("signInManagerFactory cannot be null");
+        //}
 
         [Route("login")]
         public ActionResult LoginForm()
@@ -46,7 +46,7 @@ namespace Service.Controllers
             //        return RedirectToAction("Index", "Home");
             //    }
             //}
-            //ModelState.AddModelError("", @"Invalid username or password");
+            ModelState.AddModelError("", @"Invalid username or password");
 
             return View(user);
         }

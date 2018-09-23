@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Common.Factories;
-using Common.Models.Identity;
+//using Common.Models.Identity;
 using Common.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,14 +12,14 @@ namespace Service.Controllers
     [AllowAnonymous]
     public class SignUpController : Controller
     {
-        private readonly UserManagerFactory _userManagerFactory;
-        private readonly SignInManagerFactory _signInManagerFactory;
+        //private readonly UserManagerFactory _userManagerFactory;
+        //private readonly SignInManagerFactory _signInManagerFactory;
 
-        public SignUpController(UserManagerFactory userManagerFactory, SignInManagerFactory signInManagerFactory)
-        {
-            _userManagerFactory = userManagerFactory ?? throw new NullReferenceException("userManagerFactory cannot be null");
-            _signInManagerFactory = signInManagerFactory ?? throw new NullReferenceException("signInManagerFactory cannot be null");
-        }
+        //public SignUpController(UserManagerFactory userManagerFactory, SignInManagerFactory signInManagerFactory)
+        //{
+        //    _userManagerFactory = userManagerFactory ?? throw new NullReferenceException("userManagerFactory cannot be null");
+        //    _signInManagerFactory = signInManagerFactory ?? throw new NullReferenceException("signInManagerFactory cannot be null");
+        //}
 
         [Route("signup")]
         public ActionResult SignUpForm()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Models.Identity;
+//using Common.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ namespace Persistence.Identity
         //{
         //}
 
-        //// this method is called by Owin. Thus, it's the best place to configure your UserManager
+        // this method is called by Owin. Thus, it's the best place to configure your UserManager
         //public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         //{
         //    var manager = new AppUserManager(new UserStore<AppUser>(new ViFlixContext()));

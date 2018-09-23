@@ -13,10 +13,12 @@ namespace Service.Controllers.Api
         private const string GetCustomerById = "GetCustomerById";
 
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CustomersController(IUnitOfWork unitOfWork)
+        public CustomersController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [Route("api/customers")]
@@ -26,7 +28,7 @@ namespace Service.Controllers.Api
             IList<CustomerDto> dtoCustomers = new List<CustomerDto>(customers.Count);
             foreach (var customer in customers)
             {
-                dtoCustomers.Add(Mapper.Map<Customer, CustomerDto>(customer));
+                dtoCustomers.Add(_mapper.Map<Customer, CustomerDto>(customer));
             }
 
             return Ok(dtoCustomers);
@@ -40,7 +42,7 @@ namespace Service.Controllers.Api
             if (customer == null)
                 return NotFound();
 
-            return Ok(Mapper.Map<Customer, CustomerDto>(customer));
+            return Ok(_mapper.Map<Customer, CustomerDto>(customer));
         }
 
         [HttpPost]
@@ -50,7 +52,7 @@ namespace Service.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var customerToBeSaved = Mapper.Map<CustomerDto, Customer>(customer);
+            var customerToBeSaved = _mapper.Map<CustomerDto, Customer>(customer);
 
             _unitOfWork.Customers.Add(customerToBeSaved);
 
@@ -72,7 +74,7 @@ namespace Service.Controllers.Api
             if (cstmr == null)
                 return NotFound();
 
-            Mapper.Map(customer, cstmr);
+            _mapper.Map(customer, cstmr);
 
             await _unitOfWork.CompleteAsync();
 

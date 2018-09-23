@@ -4,6 +4,5 @@ namespace Common.Models.Identity
 {
     public class AppUser : IdentityUser
     {
-
     }
 }

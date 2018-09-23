@@ -1,13 +1,15 @@
-﻿using Common.Data;
+﻿using AutoMapper;
+using Common.Data;
 using Common.Data.Repository;
 using Common.Models.Identity;
+//using Common.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Data;
 using Persistence.DbContextContainer;
 using Persistence.Repository;
 using Persistence.Repository.EFImplementation;
@@ -33,6 +35,10 @@ namespace Service
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
+            services.AddDbContext<IdentityDbContext<AppUser>>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<ViFlixContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -41,6 +47,8 @@ namespace Service
                 .AddEntityFrameworkStores<ViFlixContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddAutoMapper();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
