@@ -2,9 +2,12 @@
 using Common.Data;
 using Common.Data.Repository;
 using Common.Models.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 //using Common.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,21 +38,18 @@ namespace Service
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
-            services.AddDbContext<IdentityDbContext<AppUser>>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddDbContext<ViFlixContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(
+                Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<AppUser>()
-                .AddEntityFrameworkStores<ViFlixContext>();
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<ViFlixContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/login");
             services.AddAutoMapper();
-
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IMembershipTypeRepository, MembershipTypeRepository>();
@@ -83,6 +83,8 @@ namespace Service
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }

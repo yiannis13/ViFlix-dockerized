@@ -22,7 +22,7 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("movies")]
         public async Task<ActionResult> GetMovies()
         {
@@ -37,8 +37,8 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleName.Admin)]
-        //[Route("movies/new")]
+        //[Authorize(Roles = RoleName.Admin)]
+        [Route("movies/new")]
         public ActionResult CreateMovieForm()
         {
             return View(new MovieFormViewModel());
@@ -81,7 +81,7 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleName.Admin)]
+        //[Authorize(Roles = RoleName.Admin)]
         [Route("movies/edit/{id}")]
         public async Task<ActionResult> EditMovieForm(int id)
         {
@@ -105,7 +105,7 @@ namespace Service.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleName.Admin)]
+        //[Authorize(Roles = RoleName.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditMovie(MovieFormViewModel viewModel)
         {

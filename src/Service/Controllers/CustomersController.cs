@@ -35,7 +35,7 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleName.Admin)]
+        //[Authorize(Roles = RoleName.Admin)]
         [Route("customers/new")]
         public async Task<ViewResult> CreateCustomerForm()
         {
@@ -49,7 +49,7 @@ namespace Service.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleName.Admin)]
+        //[Authorize(Roles = RoleName.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateCustomer(CustomerFormViewModel viewModel)
         {
@@ -81,7 +81,7 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleName.Admin)]
+        //[Authorize(Roles = RoleName.Admin)]
         [Route("customers/edit/{id}")]
         public async Task<ActionResult> EditCustomerForm(int id)
         {
@@ -108,7 +108,7 @@ namespace Service.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleName.Admin)]
+        //[Authorize(Roles = RoleName.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditCustomer(CustomerFormViewModel viewModel)
         {
