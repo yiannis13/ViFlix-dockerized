@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  viflix:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    image: yiannis13/viflix
+    ports:
+      - "8081:80"
+
+#volumes:
+#  db-data: {}
