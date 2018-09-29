@@ -1,13 +1,32 @@
 version: "3"
 
 services:
-  viflix:
+  service:
     build:
       context: ./src
       dockerfile: Dockerfile
-    image: yiannis13/viflix
+    image: yiannis13/viflix   
     ports:
       - "8081:80"
+    volumes:
+      - "./src/Service/appsettings.json:/app/src/Service/appsettings.json"
+    depends_on:
+      - db
 
-#volumes:
-#  db-data: {}
+  db:
+    build:
+      context: ./data
+      dockerfile: Dockerfile
+    env_file:
+      - ".env"
+    environment:
+      - "ACCEPT_EULA=Y"
+      - "SA_PASSWORD=Passw0rd!"
+      - "MSSQL_PID=Express"
+    volumes:
+      - "db-data:/var/opt/mssql"
+    ports:
+      - "14331:1433"    
+
+volumes:
+  db-data: {}
