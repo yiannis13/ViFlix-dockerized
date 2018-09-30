@@ -28,7 +28,7 @@ namespace Service.Controllers
         {
             IList<Movie> movies = await _unitOfWork.Movies.GetAllAsync();
             if (!movies.Any())
-                return NotFound();
+                View("GetMoviesReadOnly", movies);
 
             if (User.IsInRole(RoleName.Admin))
                 return View("GetMovies", movies);
