@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Common.Models.Identity;
 using Common.Models.ViewModels;
@@ -30,7 +32,6 @@ namespace Service.Controllers
         {
             if (ModelState.IsValid)
             {
-                // the Identity tables have changed! I need to adapt the migration!
                 var appUser = await _userManager.FindByEmailAsync(user.Email);
                 if (appUser != null && await _userManager.CheckPasswordAsync(appUser, user.Password))
                 {

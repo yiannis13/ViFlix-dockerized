@@ -22,7 +22,7 @@ namespace Service.Controllers.Api
         }
 
         [Route("api/customers")]
-        public async Task<ActionResult> GetCustomers()
+        public async Task<ActionResult> GetApiCustomers()
         {
             var customers = await _unitOfWork.Customers.GetAllAsync();
             IList<CustomerDto> dtoCustomers = new List<CustomerDto>(customers.Count);
@@ -36,7 +36,7 @@ namespace Service.Controllers.Api
 
         [HttpGet]
         [Route("api/customers/{id}", Name = GetCustomerById)]
-        public async Task<ActionResult> GetCustomer(int id)
+        public async Task<ActionResult> GetApiCustomer(int id)
         {
             var customer = await _unitOfWork.Customers.GetAsync(id);
             if (customer == null)
@@ -47,7 +47,7 @@ namespace Service.Controllers.Api
 
         [HttpPost]
         [Route("api/customers")]
-        public async Task<ActionResult> CreateCustomer([FromBody] CustomerDto customer)
+        public async Task<ActionResult> CreateApiCustomer([FromBody] CustomerDto customer)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -63,7 +63,7 @@ namespace Service.Controllers.Api
 
         [HttpPut]
         [Route("api/customers/{id}")]
-        public async Task<ActionResult> UpdateCustomer(int id, [FromBody] CustomerDto customer)
+        public async Task<ActionResult> UpdateApiCustomer(int id, [FromBody] CustomerDto customer)
         {
             // Todo: Implementation need to be changed
 
@@ -83,7 +83,7 @@ namespace Service.Controllers.Api
 
         [HttpDelete]
         [Route("api/customers/{id}")]
-        public async Task<ActionResult> DeleteCustomer(int id)
+        public async Task<ActionResult> DeleteApiCustomer(int id)
         {
             var cstmr = await _unitOfWork.Customers.GetAsync(id);
             if (cstmr == null)

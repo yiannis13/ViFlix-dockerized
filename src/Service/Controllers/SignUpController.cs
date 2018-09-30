@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Common.Factories;
-//using Common.Models.Identity;
+using Common.Models.Identity;
 using Common.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,14 +11,14 @@ namespace Service.Controllers
     [AllowAnonymous]
     public class SignUpController : Controller
     {
-        //private readonly UserManagerFactory _userManagerFactory;
-        //private readonly SignInManagerFactory _signInManagerFactory;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        //public SignUpController(UserManagerFactory userManagerFactory, SignInManagerFactory signInManagerFactory)
-        //{
-        //    _userManagerFactory = userManagerFactory ?? throw new NullReferenceException("userManagerFactory cannot be null");
-        //    _signInManagerFactory = signInManagerFactory ?? throw new NullReferenceException("signInManagerFactory cannot be null");
-        //}
+        public SignUpController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        {
+            _userManager = userManager ?? throw new NullReferenceException();
+            _signInManager = signInManager ?? throw new NullReferenceException();
+        }
 
         [Route("signup")]
         public ActionResult SignUpForm()
@@ -30,35 +29,29 @@ namespace Service.Controllers
         [HttpPost]
         public async Task<ActionResult> SignUpUser(SignUpViewModel user)
         {
-            //UserManager<AppUser> userManager = _userManagerFactory.Create(HttpContext);
-            //SignInManager<AppUser, string> signInManager = _signInManagerFactory.Create(HttpContext, userManager);
+            if (ModelState.IsValid)
+            {
+                var appUser = new AppUser
+                {
+                    UserName = user.Email,
+                    Email = user.Email,
+                };
 
-            ////if (user.Password != user.ConfirmedPassword)
-            ////    ModelState.AddModelError("", Properties.Resources.PasswordDoesNotMatch);
+                var result = await _userManager.CreateAsync(appUser, user.Password);
+                if (result.Succeeded)
+                {
+                    // **Uncomment this line of code when you want to generate an new claim(type Role) to a user. Then, run the Application and SignUp.**
+                    //await _userManager.AddClaimAsync(appUser, new Claim(ClaimTypes.Role, RoleName.Admin));
 
-            //if (ModelState.IsValid)
-            //{
-            //    var appUser = new AppUser
-            //    {
-            //        UserName = user.Email,
-            //        Email = user.Email,
-            //    };
+                    await _signInManager.SignInAsync(appUser, isPersistent: false);
+                    return RedirectToAction("IndexWhenAuthenticated", "Home");
+                }
 
-            //    IdentityResult result = await userManager.CreateAsync(appUser, user.Password);
-            //    if (result.Succeeded)
-            //    {
-            //        // **Uncomment that code when you want to generate an new role to a user. Then, run the Application and SignUp.**
-            //        //var roleStore = new RoleStore<AppRole>(new ViFlixContext());
-            //        //RoleManager<AppRole> roleManager = new RoleManager<AppRole>(roleStore);
-            //        //await roleManager.CreateAsync(new AppRole(RoleName.Admin));
-            //        //await userManager.AddToRoleAsync(appUser.Id, RoleName.Admin);
-
-            //        await signInManager.SignInAsync(appUser, isPersistent: false, rememberBrowser: false);
-            //        return RedirectToAction("IndexWhenAuthenticated", "Home");
-            //    }
-
-            //    result.Errors.ForEach(error => ModelState.AddModelError("", error));
-            //}
+                foreach (var identityError in result.Errors)
+                {
+                    ModelState.AddModelError(identityError.Code, identityError.Description);
+                }
+            }
 
             return View(user);
         }

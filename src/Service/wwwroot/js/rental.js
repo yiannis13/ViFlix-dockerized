@@ -43,9 +43,10 @@
                 viewModel = {
                     "movieNames": []
                 };
-            }).fail(function () {
-                toastr.error("Something unexpected happened", "Oops");
-            });
+                }).fail(function (jqXHR) {
+                    console.log(jqXHR);
+                    toastr.error("Something unexpected happened", "Oops");
+                });
         });
 
 });

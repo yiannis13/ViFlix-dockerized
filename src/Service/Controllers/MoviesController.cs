@@ -37,7 +37,7 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = RoleName.Admin)]
+        [Authorize(Roles = RoleName.Admin)]
         [Route("movies/new")]
         public ActionResult CreateMovieForm()
         {
@@ -45,8 +45,8 @@ namespace Service.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = RoleName.Admin)]
-        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.Admin)]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateMovie(MovieFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace Service.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = RoleName.Admin)]
+        [Authorize(Roles = RoleName.Admin)]
         [Route("movies/edit/{id}")]
         public async Task<ActionResult> EditMovieForm(int id)
         {
@@ -105,7 +105,7 @@ namespace Service.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = RoleName.Admin)]
+        [Authorize(Roles = RoleName.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditMovie(MovieFormViewModel viewModel)
         {
