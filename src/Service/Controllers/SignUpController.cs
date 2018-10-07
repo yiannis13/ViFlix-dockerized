@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Common.Models;
 using Common.Models.Identity;
 using Common.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;

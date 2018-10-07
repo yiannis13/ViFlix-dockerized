@@ -19,7 +19,7 @@ namespace Service.Controllers.Api
 
         [HttpPost]
         [Route("api/rental")]
-        public async Task<IActionResult> RentMovies([FromBody] RentalDto rental)
+        public async Task<IActionResult> RentMovies(RentalDto rental)
         {
             // Todo: Refactor by introducing a Service for it
 
@@ -28,13 +28,13 @@ namespace Service.Controllers.Api
 
             if (rental?.MovieNames == null || rental.MovieNames.Count == 0)
             {
-                return BadRequest();
+                return BadRequest("Movies must not be null or empty.");
             }
 
             Customer customer = await _unitOfWork.Customers.GetAsync(rental.CustomerId);
             if (customer == null)
             {
-                return NotFound();
+                return NotFound($"Customer with Id: {rental.CustomerId} could be found.");
             }
 
             foreach (var movieName in rental.MovieNames)
